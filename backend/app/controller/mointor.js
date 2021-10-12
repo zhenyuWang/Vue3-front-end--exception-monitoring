@@ -43,7 +43,7 @@ class MointorController extends Controller {
   // 前端报错，上报error
   async reportError() {
     const { ctx } = this;
-    const { environment, location, message, stack, component, browserInfo, userId, userName, routerHistory, clickHistory } = ctx.request.body;
+    const { environment, location, message, stack, browserInfo, userId, userName, routerHistory, clickHistory } = ctx.request.body;
     let env = '';
     if (environment === '测试环境') {
       env = 'uat';
@@ -69,6 +69,7 @@ class MointorController extends Controller {
     });
     // 通过上送的sourcemap文件，配合error信息，解析报错信息
     const errInfo = await stackParser.parseStackTrack(stack, message);
+    console.log('errInfo', errInfo);
     // 获取当前时间
     const now = new Date();
     const time = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
@@ -76,7 +77,6 @@ class MointorController extends Controller {
     const mailMsg = `
     <h3>message:${message}</h3>
     <h3>location:${location}</h3>
-    <p>component:${component}</p>
     <p>source:${errInfo.source}</p>
     <p>line::${errInfo.lineNumber}</p>
     <p>column:${errInfo.columnNumber}</p>

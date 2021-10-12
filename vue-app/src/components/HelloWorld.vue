@@ -7,7 +7,8 @@ defineProps({
 
 const count = ref(0)
 function add(){
-  count.value++
+  count.value++;
+  console.log(a)
 }
 </script>
 
