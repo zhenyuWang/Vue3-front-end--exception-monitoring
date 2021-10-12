@@ -1,5 +1,6 @@
 import { loadEnv } from "vite";
 import vue from '@vitejs/plugin-vue'
+// 引入upload sourcemap rollup plugin
 import uploadSourceMap from "./src/plugins/rollup-plugin-upload-sourcemap";
 
 // mode 当前环境 development production
@@ -20,10 +21,13 @@ export default ({ mode }) => {
     },
     plugins: [
       vue(),
-      // 打包后上传sourcemap
+      // 使用upload sourcemap rollup plugin
       uploadSourceMap({
+        // 基本路径，判断当前环境使用
         baseUrl: env.VITE_BASE_API,
+        // 处理目标文件夹接口地址
         handleTargetFolderUrl: `${env.VITE_MONITOR_UPLOAD_API}/emptyFolder`,
+        // 上传sourcemap文件接口地址
         uploadUrl: `${env.VITE_MONITOR_UPLOAD_API}/uploadSourceMap`,
       }),
     ],

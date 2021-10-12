@@ -1,4 +1,3 @@
-// 需要安装@types/glob对ts做支持
 import glob from "glob";
 import path from "path";
 import fs from "fs";

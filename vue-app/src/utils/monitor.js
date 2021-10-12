@@ -59,6 +59,8 @@ export default function handleError(Vue,baseUrl) {
         location: window.location.href,
         message: err.message,
         stack: err.stack,
+        // 浏览器信息
+        browserInfo: getBrowserInfo(),
         // 以下信息可以放在vuex store中维护
         // 用户ID
         userId:"001",
